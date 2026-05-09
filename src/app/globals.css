@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@keyframes girar {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes parpadeo {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.spinning {
+  animation: girar 8s linear infinite;
+}
+
+.paused {
+  animation: girar 8s linear infinite paused;
+}
+
+.blinking {
+  animation: parpadeo 1.2s infinite;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0f0f1a; }
+::-webkit-scrollbar-thumb { background: #7c3aed55; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #7c3aed; }
+input[type=range] { accent-color: #7c3aed; }
