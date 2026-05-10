@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
+import MapClient from "./MapClient";
 import type { Pais, Radio } from "@/types";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
@@ -69,6 +70,7 @@ export default function RadioPlayer() {
       const res = await fetch(`${API_BASE}/radios?country=${pais.ingles}`);
       const data: Radio[] = await res.json();
       setRadios(data);
+      console.log(data)
       setIndice(0);
       if (data.length === 0) setEstado("❌ No se encontraron radios");
     } catch {
@@ -119,6 +121,9 @@ export default function RadioPlayer() {
           "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(57,20,71,1) 0%, rgba(0,0,0,1) 57%)",
       }}
     >
+
+
+
       {/* Top bar */}
       <div className="fixed top-0 left-0 right-0 z-50 flex mt-5 justify-between items-center px-[3%] h-14">
         <button
@@ -143,7 +148,7 @@ export default function RadioPlayer() {
       </div>
       {/* Country menu */}
       <div
-        className={`fixed top-0 left-0 h-full w-[270px] bg-[#0f0f1a] border-r border-purple-700/30 z-[300] transition-transform duration-300 overflow-y-auto pb-6 ${
+        className={`fixed top-0 left-0 h-full w-67.5 bg-[#0f0f1a] border-r border-purple-700/30 z-300 transition-transform duration-300 overflow-y-auto pb-6 ${
           menuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -179,7 +184,7 @@ export default function RadioPlayer() {
       </div>
       {/* Profile menu */}
       <div
-        className={`fixed top-0 right-0 h-full w-[270px] bg-[#0f0f1a] border-l border-purple-700/30 z-[300] transition-transform duration-300 overflow-y-auto pb-6 ${
+        className={`fixed top-0 right-0 h-full w-67.5 bg-[#0f0f1a] border-l border-purple-700/30 z-300 transition-transform duration-300 overflow-y-auto pb-6 ${
           profileOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -217,15 +222,17 @@ export default function RadioPlayer() {
       {/* Overlay */}
       {(menuOpen || profileOpen) && (
         <div
-          className="fixed inset-0 bg-black/60 z-[200]"
+          className="fixed inset-0 bg-black/60 z-200"
           onClick={() => {
             setMenuOpen(false);
             setProfileOpen(false);
           }}
         />
       )}
+
       {/* Player card */}
-      <div className="bg-white/5 backdrop-blur-md border w-full md:w-2/3 border-white/10 rounded-3xl p-8 text-center text-white w-full mx-4">
+      <div className="bg-white/5 backdrop-blur-md border md:w-2/3 border-white/10 rounded-3xl p-8 text-center text-white w-full mx-4">
+    
         {/* Cover */}
         <div className="flex flex-col items-center mb-4">
           <div className="relative w-36 h-36 rounded-full overflow-hidden shadow-[0_0_40px_#7c3aed]">
@@ -308,7 +315,7 @@ export default function RadioPlayer() {
         onError={() => setEstado("❌ Radio no disponible")}
       />
       <div
-        className="flex bottom-0 fixed w-[500px] p-1.5 bg-purple-800 h-14 gap-2 justify-center m-3.5 rounded-2xl"
+        className="flex bottom-0 fixed w-125 p-1.5 bg-purple-800 h-14 gap-2 justify-center m-3.5 rounded-2xl"
         style={{
           background:
             "linear-gradient(181deg, rgb(97 48 48) 0%, rgb(83 34 101) 0%, rgb(56 42 77) 57%);",
@@ -340,6 +347,7 @@ export default function RadioPlayer() {
           </tbody>
         </table>
       </div>
-    </div>
+      </div>
+      
   );
 }

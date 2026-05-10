@@ -28,10 +28,33 @@ def GET(country: str):
             "language": i["language"],
             "url": i["url_resolved"],
             "icon": i["favicon"],
+            "geo_lat": i["geo_lat"],
+            "geo_long": i["geo_long"]
         }
         for i in radios
         if i["url_resolved"]
     ]
+
+@app.get("/all")
+def GET():
+    url = f"https://de1.api.radio-browser.info/json/stations"
+    header = {"User-Agent": "RadioIn1.0"}
+    response = requests.get(url, headers=header)
+    radios = response.json()
+    return [
+        {
+            "name": i["name"],
+            "country": i["country"],
+            "language": i["language"],
+            "url": i["url_resolved"],
+            "icon": i["favicon"],
+            "geo_lat": i["geo_lat"],
+            "geo_long": i["geo_long"]
+        }
+        for i in radios
+        if i["url_resolved"]
+    ]
+
 
 @app.get("/test")
 def TEST(country: str = "Colombia"):
