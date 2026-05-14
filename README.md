@@ -32,4 +32,4 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 ## Páginas
 - `/`       → Landing page
 - `/radio`  → Reproductor de radio
-- `/map`    → Mapa Libre
+- `/world`    → Mapa Libre
