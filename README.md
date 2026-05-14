@@ -33,3 +33,7 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 ## Páginas
 - `/`       → Landing page
 - `/radio`  → Reproductor de radio
+<<<<<<< HEAD
+=======
+- `/world`    → Mapa Libre
+>>>>>>> 8388274 (Update README.md)
