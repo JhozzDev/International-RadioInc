@@ -39,7 +39,12 @@ def GET(country: str):
 def GET():
     url = "https://de1.api.radio-browser.info/json/stations"
     headers = {"User-Agent": "RadioIn1.0"}
-    response = requests.get(url, headers=headers)
+    params = {
+        "limit": 5000,  
+        "hidebroken": True,
+        "has_geo_info": True 
+    }
+    response = requests.get(url, headers=headers, params=params)
     radios = response.json()
     return [
         {
