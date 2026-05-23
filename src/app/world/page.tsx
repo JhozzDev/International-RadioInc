@@ -1,7 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import MapClient from "@/components/MapClient";
+import dynamic from "next/dynamic";
+
+const MapClient = dynamic(() => import("@/components/MapClient"), {
+  ssr: false 
+});
 import type { Radio } from "@/types";
 
 export default function World() {
@@ -11,16 +15,20 @@ export default function World() {
 
   const [radios, setRadios] = useState<Radio[]>([]);
 
+  
   useEffect(() => {
     async function loadRadios() {
       try {
         const res = await fetch(
           `${API_BASE}/all`
         );
+         
+
+
 
         const data: Radio[] =
           await res.json();
-
+        console.log("API response:", data); 
         setRadios(data);
       } catch (err) {
         console.error(
