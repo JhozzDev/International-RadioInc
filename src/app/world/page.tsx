@@ -35,6 +35,7 @@ export default function World() {
 
   return (
     <div className="w-full h-full">
+      <div className="fixed top-0 left-0 right-0 z-50 flex mt-5 justify-between items-center px-[3%] h-14"><button className="bg-purple-700 w-34 text-white border-none rounded-xl px-4 py-2 text-base cursor-pointer shadow-[0_0_20px_#7c3aed] hover:bg-purple-600">Exit</button></div>
       <MapClient stations={radios} />
     </div>
   );

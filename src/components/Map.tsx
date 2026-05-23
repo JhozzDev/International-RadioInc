@@ -27,7 +27,7 @@ L.Icon.Default.mergeOptions({
 })
 
 export default function RadioMap({
-  stations,
+ stations = [], 
 }: {
   stations: Station[]
 }) {

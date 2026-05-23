@@ -5,6 +5,7 @@ export interface Pais {
 }
 
 export interface Radio {
+  id: string;     
   name: string;
   country: string;
   language: string;

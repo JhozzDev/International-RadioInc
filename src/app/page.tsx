@@ -57,6 +57,11 @@ export default function LandingPage() {
             Let&apos;s go Listen! 
           </button>
         </Link>
+        <Link href="/world">
+          <button className="mt-2 w-72 py-4 rounded-xl bg-purple-700 text-white text-xl font-semibold cursor-pointer transition-all duration-150 active:scale-95 hover:bg-purple-600 shadow-[0_0_25px_#7c3aed]">
+            Free world! 
+          </button>
+        </Link>
       </section>
     </main>
   );
