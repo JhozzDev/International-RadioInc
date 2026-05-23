@@ -2,8 +2,10 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
-import MapClient from "./MapClient";
-import type { Pais, Radio } from "@/types";
+import Link from "next/link";
+import CultureBox from "./Culturebox";
+import { culturas } from "../../public/culturas"
+import type { Pais, Radio} from "@/types";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
@@ -15,12 +17,12 @@ export default function RadioPlayer() {
   const [estado, setEstado] = useState("Listo");
   const [volume, setVolume] = useState(1);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [info, setInfo] = useState<any>(null);
   const [profileOpen, setProfileOpen] = useState(false);
   const [paisActivo, setPaisActivo] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [imgError, setImgError] = useState(false);
-  const [offset, setOffset] = useState(0);
-  const LIMIT = 10;
+
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -60,6 +62,12 @@ export default function RadioPlayer() {
 
   const seleccionarPais = async (pais: Pais) => {
     setPaisActivo(pais.nombre);
+
+    const culturaEncontrada = culturas.find(
+        (item) => item.nombre === pais.nombre
+    );
+
+    setInfo(culturaEncontrada);
     setMenuOpen(false);
     setLoading(true);
     setEstado("Buscando radios...");
@@ -70,7 +78,7 @@ export default function RadioPlayer() {
       const res = await fetch(`${API_BASE}/radios?country=${pais.ingles}`);
       const data: Radio[] = await res.json();
       setRadios(data);
-      console.log(data)
+      console.log(data);
       setIndice(0);
       if (data.length === 0) setEstado("❌ No se encontraron radios");
     } catch {
@@ -121,9 +129,6 @@ export default function RadioPlayer() {
           "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(57,20,71,1) 0%, rgba(0,0,0,1) 57%)",
       }}
     >
-
-
-
       {/* Top bar */}
       <div className="fixed top-0 left-0 right-0 z-50 flex mt-5 justify-between items-center px-[3%] h-14">
         <button
@@ -146,7 +151,7 @@ export default function RadioPlayer() {
           👤 Perfil
         </button>
       </div>
-      {/* Country menu */}
+
       <div
         className={`fixed top-0 left-0 h-full w-67.5 bg-[#0f0f1a] border-r border-purple-700/30 z-300 transition-transform duration-300 overflow-y-auto pb-6 ${
           menuOpen ? "translate-x-0" : "-translate-x-full"
@@ -182,7 +187,9 @@ export default function RadioPlayer() {
           </button>
         ))}
       </div>
-      {/* Profile menu */}
+
+   
+
       <div
         className={`fixed top-0 right-0 h-full w-67.5 bg-[#0f0f1a] border-l border-purple-700/30 z-300 transition-transform duration-300 overflow-y-auto pb-6 ${
           profileOpen ? "translate-x-0" : "translate-x-full"
@@ -198,28 +205,19 @@ export default function RadioPlayer() {
           </button>
         </div>
         <div className="flex flex-col p-3 gap-1">
-          {[
-            "Mi cuenta",
-            "Favoritos",
-            "Historial",
-            "Configuración",
-            "Idioma",
-            "Notificaciones",
-            "Privacidad",
-            "Ayuda",
-            "Acerca de",
-            "Cerrar sesión",
-          ].map((item) => (
-            <div
+          {["world", "/", "radio"].map((item) => (
+            <Link href={item}><div
               key={item}
               className="rounded-md flex items-center text-white p-4 cursor-pointer hover:bg-purple-700/20 transition-colors"
             >
+              
               {item}
-            </div>
+             
+            </div> </Link>
           ))}
         </div>
       </div>
-      {/* Overlay */}
+
       {(menuOpen || profileOpen) && (
         <div
           className="fixed inset-0 bg-black/60 z-200"
@@ -230,10 +228,9 @@ export default function RadioPlayer() {
         />
       )}
 
-      {/* Player card */}
+    
       <div className="bg-white/5 backdrop-blur-md border md:w-2/3 border-white/10 rounded-3xl p-8 text-center text-white w-full mx-4">
     
-        {/* Cover */}
         <div className="flex flex-col items-center mb-4">
           <div className="relative w-36 h-36 rounded-full overflow-hidden shadow-[0_0_40px_#7c3aed]">
             <Image
@@ -248,7 +245,7 @@ export default function RadioPlayer() {
           <span className="block mt-2 text-xs blinking">🔴 EN VIVO</span>
         </div>
 
-        {/* Info */}
+
         <div className="mb-4">
           <h2 className="text-lg font-semibold truncate">
             {radioActual?.name ?? "Selecciona una radio"}
@@ -258,7 +255,7 @@ export default function RadioPlayer() {
           </p>
         </div>
 
-        {/* Controls */}
+    
         <div className="flex items-center justify-center gap-6 mb-4">
           <button
             onClick={anterior}
@@ -283,7 +280,6 @@ export default function RadioPlayer() {
           </button>
         </div>
 
-        {/* Volume */}
         <div className="flex items-center gap-2 mb-4">
           <span>🔈</span>
           <input
@@ -298,7 +294,6 @@ export default function RadioPlayer() {
           <span>🔊</span>
         </div>
 
-        {/* Status & counter */}
         <p className="text-sm text-gray-400">
           {loading ? "⏳ Cargando..." : estado}
         </p>
@@ -328,7 +323,16 @@ export default function RadioPlayer() {
         </div>
       </div>
 
-      <div className="overflow-y-auto max-h-64 mr-10  hidden md:block ">
+<div className="mr-4  md:flex md:flex-col md:gap-6 hidden">
+    
+    {info && <div className="text-white p-10 border-purple-400 rounded-2xl border-2   transition-all
+  duration-1000
+  ease-in-out
+  hover:bg-purple-500">
+<CultureBox info={info} />
+</div>}
+ 
+      <div className="overflow-y-auto hidden md:block max-h-64"> 
         <table className="w-full text-sm">
           <tbody>
             {radios.map((radio) => (
@@ -346,8 +350,7 @@ export default function RadioPlayer() {
             ))}
           </tbody>
         </table>
-      </div>
-      </div>
-      
+      </div></div>
+    </div>
   );
 }

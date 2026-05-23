@@ -12,3 +12,8 @@ export interface Radio {
   url: string;
   icon: string;
 }
+
+export interface CultureInfo {
+  language: string;
+  greeting: string;
+};

@@ -39,7 +39,6 @@ export default function RadioMap({
     <MapContainer
       center={[20, 0]}
       zoom={2}
-      scrollWheelZoom={true}
       className="h-dvh w-full rounded-xl z-20"
     >
       <TileLayer
