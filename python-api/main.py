@@ -37,30 +37,41 @@ def GET(country: str):
 
 @app.get("/all")
 def GET():
-    url = "https://de1.api.radio-browser.info/json/stations"
-    headers = {"User-Agent": "RadioIn1.0"}
-    params = {
-        "limit": 5000,  
-        "hidebroken": True,
-        "has_geo_info": True 
-    }
-    response = requests.get(url, headers=headers, params=params)
-    radios = response.json()
-    return [
-        {
-            "id": i["stationuuid"],  
-            "name": i["name"],
-            "country": i["country"],
-            "language": i["language"],
-            "url": i["url_resolved"],
-            "icon": i["favicon"],
-            "geo_lat": i["geo_lat"],
-            "geo_long": i["geo_long"]
+    try:
+        url = "https://de1.api.radio-browser.info/json/stations"
+        headers = {"User-Agent": "RadioIn1.0"}
+        params = {
+            "limit": 1000,
+            "hidebroken": "true",
+            "has_geo_info": "true"
         }
-        for i in radios
-        if i["url_resolved"] and i["geo_lat"] and i["geo_long"]  
-    ]
-
+        response = requests.get(url, headers=headers, params=params, timeout=30)
+        
+        print("Status:", response.status_code)
+        print("Respuesta cruda:", response.text[:300])  # ver qué devuelve
+        
+        if response.status_code != 200 or not response.text.strip():
+            return {"error": f"Radio-browser falló: status={response.status_code}"}
+        
+        radios = response.json()
+        return [
+            {
+                "id": i["stationuuid"],  
+                "name": i["name"],
+                "country": i["country"],
+                "language": i["language"],
+                "url": i["url_resolved"],
+                "icon": i["favicon"],
+                "geo_lat": i["geo_lat"],
+                "geo_long": i["geo_long"]
+            }
+            for i in radios
+            if i["url_resolved"] and i["geo_lat"] and i["geo_long"]  
+        ]
+    except Exception as e:
+        print("ERROR:", str(e))
+        return {"error": str(e)}
+    
 @app.get("/test")
 def TEST(country: str = "Colombia"):
     url = f"https://de1.api.radio-browser.info/json/stations/bycountry/{country}"
