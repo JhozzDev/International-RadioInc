@@ -8,7 +8,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
-    "https://radiolanguages.onrender.com"
+    "https://radiolanguage.onrender.com"
     ],
     allow_credentials=True,
     allow_methods=["*"],
