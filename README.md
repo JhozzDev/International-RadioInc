@@ -1,3 +1,6 @@
+<img width="1616" height="876" alt="bandicam 2026-05-23 23-21-23-876" src="https://github.com/user-attachments/assets/d413c176-5bf9-40e0-a199-e7356b0bd1f8" />
+
+
 # International Radio — Next.js + FastAPI
 
 ## Estructura
