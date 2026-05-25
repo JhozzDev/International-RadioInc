@@ -6,14 +6,22 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
+<<<<<<< HEAD
     allow_origins=[
         "http://localhost:3000",
     "https://radiolanguage.onrender.com"
     ],
+=======
+    allow_origins=["http://localhost:3000", "https://Radiolanguage.onrender.com"],
+>>>>>>> 1dab861 (Ping)
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/ping")
+def ping():
+    return {"Status": "OK"}
 
 @app.get("/radios")
 def GET(country: str):
