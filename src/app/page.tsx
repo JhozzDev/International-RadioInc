@@ -21,13 +21,14 @@ export default function LandingPage() {
 
   return (
     <main
-      className="min-h-screen flex flex-col items-center justify-center px-6 py-12"
+      className="min-h-screen flex flex-col items-center justify-center px-6 py-12 absolute top-0 z-[-2] h-screen w-screen bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]"
       style={{
         background:
           "linear-gradient(268deg, rgba(0,0,0,1) 0%, rgb(70,19,89) 0%, rgba(0,0,0,1) 57%, rgba(0,0,0,1) 93%)",
       }}
     >
-      <section className="flex flex-col items-center gap-10 w-full max-w-5xl">
+      
+      <section className="flex flex-col items-center gap-10 w-full max-w-5xl ">
         <div className="text-center">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-3 tracking-tight">
             🌍 International Radio
@@ -50,16 +51,17 @@ export default function LandingPage() {
           ))}
         </div>
 
+<div className="md:flex gap-10 justify-center w-full md:flex-row">
         <Link href="/radio">
-          <button className="mt-2 w-72 py-4 rounded-xl bg-purple-700 text-white text-xl font-semibold cursor-pointer transition-all duration-150 active:scale-95 hover:bg-purple-600 shadow-[0_0_25px_#7c3aed]">
+          <button className="mt-2 w-72 py-4 rounded-xl bg-purple-700 text-white text-xl font-semibold cursor-pointer transition-all duration-750 active:scale-95  shadow-[0_0_25px_#7c3aed] hover:bg-gray-900 hover:shadow-none">
             Let's go Listen! 
           </button>
         </Link>
         <Link href="/world">
-          <button className="mt-2 w-72 py-4 rounded-xl bg-purple-700 text-white text-xl font-semibold cursor-pointer transition-all duration-150 active:scale-95 hover:bg-purple-600 shadow-[0_0_25px_#7c3aed]">
+          <button className="mt-2 w-72 py-4 rounded-xl bg-purple-700 text-white text-xl font-semibold cursor-pointer transition-all duration-750 active:scale-95 shadow-[0_0_25px_#7c3aed] hover:bg-gray-900 hover:shadow-none">
             Free world! 
           </button>
-        </Link>
+        </Link></div>
       </section>
     </main>
   );

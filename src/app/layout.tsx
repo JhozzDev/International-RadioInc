@@ -19,7 +19,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="font-[Poppins,sans-serif] antialiased">
+      <body className="font-[Poppins,sans-serif] antialiased ">
         {children}
       </body>
     </html>

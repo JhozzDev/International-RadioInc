@@ -9,6 +9,8 @@ import type { Pais, Radio} from "@/types";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
+
+
 export default function RadioPlayer() {
   const [paises, setPaises] = useState<Pais[]>([]);
   const [radios, setRadios] = useState<Radio[]>([]);
@@ -129,7 +131,6 @@ export default function RadioPlayer() {
           "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(57,20,71,1) 0%, rgba(0,0,0,1) 57%)",
       }}
     >
-      {/* Top bar */}
       <div className="fixed top-0 left-0 right-0 z-50 flex mt-5 justify-between items-center px-[3%] h-14">
         <button
           onClick={() => {
@@ -323,7 +324,8 @@ export default function RadioPlayer() {
         </div>
       </div>
 
-<div className="mr-4  md:flex md:flex-col md:gap-6 hidden">
+<div className="mr-4 md:flex md:flex-col md:gap-6 hidden"  style={{
+    width: "-webkit-fill-available"}}>
     
     {info && <div className="text-white p-10 border-purple-400 rounded-2xl border-2   transition-all
   duration-1000
